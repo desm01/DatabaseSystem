@@ -1,0 +1,256 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using _2WoodSide3190.objects;
+using _2WoodSide3190.dbAccess;
+using System.Runtime.InteropServices;
+
+namespace _2WoodSide3190.gui
+{
+    public partial class SelectAParentForm : Form
+    {
+        private int parentId;
+        private DataTable table;
+        private Database db;
+        private string selected;
+
+        private int numsBeforeAdd = 0;
+
+        [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
+        private static extern IntPtr CreateRoundRectRgn
+        (
+        int nLeftRect,     // x-coordinate of upper-left corner
+        int nTopRect,      // y-coordinate of upper-left corner
+        int nRightRect,    // x-coordinate of lower-right corner
+        int nBottomRect,   // y-coordinate of lower-right corner
+        int nWidthEllipse, // height of ellipse
+        int nHeightEllipse // width of ellipse
+        );
+
+        public SelectAParentForm(Database db, string SelectedTable)
+        {
+            InitializeComponent();
+            CenterToScreen();
+            this.FormBorderStyle = FormBorderStyle.None;
+            Region = System.Drawing.Region.FromHrgn(CreateRoundRectRgn(0, 0, Width, Height, 20, 20));
+            this.db = db;
+            selected = SelectedTable;
+
+            if (SelectedTable == "Parent")
+            {
+                ParentDBAccess pdba = new ParentDBAccess(db);
+                createTableToChooseParents(pdba.SelectAllParents());
+            }
+
+            else if (SelectedTable == "Staff") 
+            {
+                StaffDBAccess sdba = new StaffDBAccess(db);
+                createTableToChooseStaff(sdba.getAllStaff());
+            }
+
+            else if (SelectedTable == "Children") 
+            {
+                ChildrenDBAccess cdba = new ChildrenDBAccess(db);
+                createTableToChooseChildren(cdba.getAllChildren());
+            }
+
+            else if (SelectedTable == "School") 
+            {
+                SchoolDBAccess scdba = new SchoolDBAccess(db);
+                createTableToChooseSchool(scdba.getAllSchools());  
+            }
+
+            else if (SelectedTable == "Bus") 
+            {
+                BusDBAccess bdba = new BusDBAccess(db);
+                createTableToChooseBus(bdba.getAllBus());
+            }
+        }
+
+        private void createTableToChooseBus(List<Bus> list) 
+        {
+            table = new DataTable();
+            table.Columns.Add("Bus ID:");
+            table.Columns.Add("Bus Driver:");
+            table.Columns.Add("Bus Route");
+            table.Columns.Add("Time");
+
+            foreach (Bus bus in list) 
+            {
+                table.Rows.Add(bus.BusId, bus.BusDriver, bus.BusRoute, bus.BusTime);
+            }
+
+            parentResults.DataSource = table;
+        }
+
+        private void createTableToChooseSchool (List<Schools> list) 
+        {
+            table = new DataTable();
+            table.Columns.Add("School ID:");
+            table.Columns.Add("School Name:");
+            table.Columns.Add("School Location:");
+            table.Columns.Add("School Address");
+            table.Columns.Add("School Number");
+            table.Columns.Add("School Email:");
+
+            foreach (Schools school in list)
+            {
+                table.Rows.Add(school.SchoolId, school.SchoolName, school.SchoolLocation, school.SchoolAddress, school.SchoolNumber, school.SchoolEmail);
+            }
+            parentResults.DataSource = table;
+        }
+
+        private void createTableToChooseChildren( List <Children> list) 
+        {
+
+            table = new DataTable();
+            table.Columns.Add("Child ID:");
+            table.Columns.Add("Parent ID:");
+            table.Columns.Add("School ID:");
+            table.Columns.Add("Child Name:");
+            table.Columns.Add("Medical Details:");
+            table.Columns.Add("Age");
+
+            foreach (Children child in list)
+            {
+                table.Rows.Add(child.ChildId, child.ParentId, child.SchoolId, child.ChildName, child.MedicalDetails, child.Age);
+            }
+            parentResults.DataSource = table;
+        }
+
+        private void createTableToChooseStaff( List<Staff> list) 
+        {
+            table = new DataTable();
+            table.Columns.Add("Staff ID:");
+            table.Columns.Add("Staff Name:");
+            table.Columns.Add("Staff Number:");
+            table.Columns.Add("Staff Address:");
+            table.Columns.Add("Staff Email:");
+            table.Columns.Add("Staff Voluntary:");
+
+            foreach (Staff staff in list)
+            {
+
+                table.Rows.Add(staff.StaffId, staff.StaffName, staff.StaffNumber, staff.StaffAddress, staff.StaffEmail, staff.StaffVoluntary);
+            }
+            parentResults.DataSource = table;
+        }
+
+        private void createTableToChooseParents( List<Parent> list)    
+        {
+            table = new DataTable();
+        table.Columns.Add("Parent ID:");
+            table.Columns.Add("Parent Name:");
+            table.Columns.Add("Parent Phone:");
+            table.Columns.Add("Parent Email:");
+            table.Columns.Add("Parent Address:");
+            table.Columns.Add("Parent Occupation:");
+
+            foreach(Parent prnt in list) 
+            {
+                table.Rows.Add(prnt.ParentId, prnt.ParentName, prnt.ParentPhone, prnt.ParentEmail, prnt.ParentAddress, prnt.ParentOccupation);
+            }
+
+            parentResults.DataSource = table; 
+            
+
+        }
+
+        private void SelectAParentForm_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'woodSide3190DataSet.Parent' table. You can move, or remove it, as needed.
+          
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (selected == "Parent")
+            {
+                if (parentResults.SelectedRows.Count >= 0)
+                {
+                    DataGridViewRow row = this.parentResults.Rows[e.RowIndex];
+                    int Id = Convert.ToInt32(row.Cells[0].Value.ToString());
+                    this.Hide();
+                    new AddChild(db, parentId).Show();
+                }
+            }
+
+            else if (selected == "Children") 
+            {
+                DataGridViewRow row = this.parentResults.Rows[e.RowIndex];
+                int Id = Convert.ToInt32(row.Cells[0].Value.ToString());
+                this.Hide();
+            }
+
+          }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string SearchedName = textBox1.Text;
+            ParentDBAccess pdba = new ParentDBAccess(db);
+            SelectAllWhereName(pdba.SelectAllParentsWhereName(SearchedName));
+
+        }
+
+        
+            private void SelectAllWhereName (Parent list) 
+        {
+            table = new DataTable();
+            table.Columns.Add("Parent ID");
+            table.Columns.Add("Parent Name");
+            table.Columns.Add("Parent Phone");
+            table.Columns.Add("Parent Email");
+            table.Columns.Add("Parent Address");
+            table.Columns.Add("Parent Occupation");
+
+     /*     foreach (Parent prnt in list)
+            {
+              table.Rows.Add(prnt.ParentId, prnt.ParentName, prnt.ParentPhone, prnt.ParentEmail, prnt.ParentAddress, prnt.ParentOccupation);
+           } 
+
+            parentResults.DataSource = table; */
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            switch (selected) 
+            {
+
+                    case "Parent": ParentDBAccess pdba = new ParentDBAccess(db);
+                    createTableToChooseParents(pdba.SelectAllParents()); break;
+                            
+                    case "Children": ChildrenDBAccess cdba = new ChildrenDBAccess(db);
+                    createTableToChooseChildren(cdba.getAllChildren()); break;
+           
+                    case "Bus": BusDBAccess bdba = new BusDBAccess(db);
+                    createTableToChooseBus(bdba.getAllBus()); break;
+
+                    case "Staff": StaffDBAccess sdba = new StaffDBAccess(db);
+                    createTableToChooseStaff(sdba.getAllStaff()); break;
+
+                    case "School": SchoolDBAccess scdba = new SchoolDBAccess(db);
+                    createTableToChooseSchool(scdba.getAllSchools()); break;            
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new MainApp().Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+    
+    }
+
