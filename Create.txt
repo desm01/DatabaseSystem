@@ -1,0 +1,78 @@
+CREATE TABLE [dbo].[Staff] (
+    [StaffId]        INT           IDENTITY (1, 1) NOT NULL,
+    [StaffName]      NVARCHAR (50) NOT NULL,
+    [StaffNumber]    INT NOT NULL,
+    [StaffAddress]   NVARCHAR (50) NOT NULL,
+    [StaffEmail]     NVARCHAR (50) NOT NULL,
+    [StaffVoluntary] BIT           NOT NULL,
+    CONSTRAINT [PK_Staff] PRIMARY KEY CLUSTERED ([StaffId] ASC)
+)
+
+CREATE TABLE [dbo].[Schools] (
+    [SchoolId]       INT           IDENTITY (1, 1) NOT NULL,
+    [SchoolName]     NVARCHAR (50) NOT NULL,
+    [SchoolLocation] NVARCHAR (50) NOT NULL,
+    [SchoolAddress]  NVARCHAR (50) NOT NULL,
+    [SchoolNumber]   INT           NOT NULL,
+    [SchoolEmail]    NVARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_Schools] PRIMARY KEY CLUSTERED ([SchoolId] ASC)
+)
+
+CREATE TABLE [dbo].[Parent] (
+    [ParentId]         INT           IDENTITY (1, 1) NOT NULL,
+    [ParentName]       NVARCHAR (50) NOT NULL,
+    [ParentPhone]      NVARCHAR (50) NOT NULL,
+    [ParentEmail]      NVARCHAR (50) NOT NULL,
+    [ParentAddress]    NVARCHAR (50) NOT NULL,
+    [ParentOccupation] NVARCHAR (50) NOT NULL,
+    CONSTRAINT [PK_Parent] PRIMARY KEY CLUSTERED ([ParentId] ASC)
+)
+
+CREATE TABLE [dbo].[Children] (
+    [ChildId]        INT           IDENTITY (1, 1) NOT NULL,
+    [ParentId]       INT           NOT NULL,
+    [SchoolId]       INT           NOT NULL,
+    [ChildName]      NVARCHAR (50) NOT NULL,
+    [MedicalDetails] NVARCHAR (50) NOT NULL,
+    [ChildAge]       INT           NOT NULL,
+    CONSTRAINT [PK_Children] PRIMARY KEY CLUSTERED ([ChildId] ASC),
+    CONSTRAINT [FK_Children_ToTable] FOREIGN KEY ([ParentId]) REFERENCES [dbo].[Parent] ([ParentId]),
+    CONSTRAINT [ChildrenToSchool] FOREIGN KEY ([SchoolId]) REFERENCES [dbo].[Schools] ([SchoolId])
+)
+
+CREATE TABLE [dbo].[Bus] (
+    [BusId]    INT           IDENTITY (1, 1) NOT NULL,
+    [BusRoute] NVARCHAR (50) NOT NULL,
+    [Driver]   NVARCHAR (50) NOT NULL,
+    [Time]     INT           NOT NULL,
+    CONSTRAINT [PK_Bus] PRIMARY KEY CLUSTERED ([BusId] ASC)
+)
+
+CREATE TABLE [dbo].[BusBooking] (
+    [BusBookingId] INT IDENTITY (1, 1) NOT NULL,
+    [BusId]        INT NOT NULL,
+    [StaffId]      INT NOT NULL,
+    CONSTRAINT [PK_BusBooking] PRIMARY KEY CLUSTERED ([BusBookingId] ASC),
+    CONSTRAINT [BusBookingToBus] FOREIGN KEY ([BusId]) REFERENCES [dbo].[Bus] ([BusId]),
+    CONSTRAINT [BusBookingToStaff] FOREIGN KEY ([StaffId]) REFERENCES [dbo].[Staff] ([StaffId])
+)
+
+CREATE TABLE [dbo].[Booking] (
+    [BookingId]    INT  IDENTITY (1, 1) NOT NULL,
+    [ChildId]      INT  NOT NULL,
+    [BusBookingId] INT  NOT NULL,
+    [Paid]         BIT  NOT NULL,
+    [Date]         DATE NOT NULL,
+    CONSTRAINT [PK_Booking] PRIMARY KEY CLUSTERED ([BookingId] ASC),
+    CONSTRAINT [BookingToBusBooking] FOREIGN KEY ([BusBookingId]) REFERENCES [dbo].[BusBooking] ([BusBookingId]),
+    CONSTRAINT [BookingToChild] FOREIGN KEY ([ChildId]) REFERENCES [dbo].[Children] ([ChildId])
+)
+
+CREATE TABLE [dbo].[Cancellation] (
+    [CancellationId] INT           IDENTITY (1, 1) NOT NULL,
+    [BookingId]      INT           NOT NULL,
+    [ChildId]        INT           NOT NULL,
+    [Date]           DATETIME      NOT NULL,
+    [Reason]         NVARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([CancellationId] ASC)
+)

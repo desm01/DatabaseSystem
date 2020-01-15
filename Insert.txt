@@ -1,0 +1,165 @@
+SET IDENTITY_INSERT [dbo].[Schools] ON 
+GO
+INSERT [dbo].[Schools] ([SchoolId], [SchoolName], [SchoolLocation], [SchoolAddress], [SchoolNumber], [SchoolEmail]) VALUES (1, N'St.Francis', N'Lurgan1', N'32 Lurgan Street', 32894438, N'school@stfrancis.com')
+GO
+INSERT [dbo].[Schools] ([SchoolId], [SchoolName], [SchoolLocation], [SchoolAddress], [SchoolNumber], [SchoolEmail]) VALUES (2, N'Tannaghmore', N'Lurgan', N'46 East Armagh Avenue', 43926429, N'school@tannaghmore.com')
+GO
+INSERT [dbo].[Schools] ([SchoolId], [SchoolName], [SchoolLocation], [SchoolAddress], [SchoolNumber], [SchoolEmail]) VALUES (3, N'St.Teresa', N'Lurgan', N'21 Saint Boulevard', 343, N'email@stteresa.com')
+GO
+INSERT [dbo].[Schools] ([SchoolId], [SchoolName], [SchoolLocation], [SchoolAddress], [SchoolNumber], [SchoolEmail]) VALUES (4, N'St.Patricks', N'Armagh', N'98 Dobbin Road', 82739273, N'stpats@gmail.org')
+GO
+SET IDENTITY_INSERT [dbo].[Schools] OFF
+
+
+
+SET IDENTITY_INSERT [dbo].[Bus] ON 
+GO
+INSERT [dbo].[Bus] ([BusId], [BusRoute], [Driver], [Time]) VALUES (1, N'Armagh-Lurgan', N'Stephen', 1200)
+GO
+INSERT [dbo].[Bus] ([BusId], [BusRoute], [Driver], [Time]) VALUES (2, N'Lurgan-Armagh', N'Phill', 1600)
+GO
+INSERT [dbo].[Bus] ([BusId], [BusRoute], [Driver], [Time]) VALUES (3, N'Newton-Belfast', N'Anthony', 1500)
+GO
+INSERT [dbo].[Bus] ([BusId], [BusRoute], [Driver], [Time]) VALUES (4, N'Lurgan-Newton', N'Stephen', 1600)
+GO
+INSERT [dbo].[Bus] ([BusId], [BusRoute], [Driver], [Time]) VALUES (5, N'Lisburn-Moira', N'Samantha', 1800)
+GO
+INSERT [dbo].[Bus] ([BusId], [BusRoute], [Driver], [Time]) VALUES (6, N'Stephen', N'Belfast-Newtown', 1500)
+GO
+SET IDENTITY_INSERT [dbo].[Bus] OFF
+
+
+
+GO
+SET IDENTITY_INSERT [dbo].[Staff] ON 
+GO
+INSERT [dbo].[Staff] ([StaffId], [StaffName], [StaffNumber], [StaffAddress], [StaffEmail], [StaffVoluntary]) VALUES (1, N'Damien Mullin', 774384, N'97 Elizabeth Road', N'mullin@gmail.com', 0)
+GO
+INSERT [dbo].[Staff] ([StaffId], [StaffName], [StaffNumber], [StaffAddress], [StaffEmail], [StaffVoluntary]) VALUES (2, N'Chris O''Callaghan', 77329726, N'34 Belfast Lane', N'chris@gmail.co.uk', 1)
+GO
+SET IDENTITY_INSERT [dbo].[Staff] OFF
+
+
+
+GO
+SET IDENTITY_INSERT [dbo].[Parent] ON 
+GO
+INSERT [dbo].[Parent] ([ParentId], [ParentName], [ParentPhone], [ParentEmail], [ParentAddress], [ParentOccupation]) VALUES (1, N'Desmond Madden', N'435454545', N'desmondmadden@hotmail.com', N'84 Desmond Road', N'Coder')
+GO
+INSERT [dbo].[Parent] ([ParentId], [ParentName], [ParentPhone], [ParentEmail], [ParentAddress], [ParentOccupation]) VALUES (2, N'Catherine McKee', N'0772084119', N'catherine@epos.com', N'67 Dobbin Road', N'Shop Keeper')
+GO
+INSERT [dbo].[Parent] ([ParentId], [ParentName], [ParentPhone], [ParentEmail], [ParentAddress], [ParentOccupation]) VALUES (3, N'Tiger Woods', N'87', N'Tiger@pga.com', N'89 Florida Crescent', N'Golfer')
+GO
+INSERT [dbo].[Parent] ([ParentId], [ParentName], [ParentPhone], [ParentEmail], [ParentAddress], [ParentOccupation]) VALUES (4, N'Des Madden', N'534875497', N'des', N'53', N'fnognr')
+GO
+INSERT [dbo].[Parent] ([ParentId], [ParentName], [ParentPhone], [ParentEmail], [ParentAddress], [ParentOccupation]) VALUES (11, N'Kanye West', N'8924974309', N'kanyewest@gmail.com', N'Calabass', N'Artist')
+GO
+INSERT [dbo].[Parent] ([ParentId], [ParentName], [ParentPhone], [ParentEmail], [ParentAddress], [ParentOccupation]) VALUES (12, N'Kendrick Lamar', N'439743843', N'kdot@gmail.com', N'California', N'Artist')
+GO
+INSERT [dbo].[Parent] ([ParentId], [ParentName], [ParentPhone], [ParentEmail], [ParentAddress], [ParentOccupation]) VALUES (13, N'Nate Diaz', N'048304308', N'nate@ufc.com', N'Stockton', N'Fighter')
+GO
+INSERT [dbo].[Parent] ([ParentId], [ParentName], [ParentPhone], [ParentEmail], [ParentAddress], [ParentOccupation]) VALUES (14, N'Shea Doherty', N'0282828391', N'sheadog@gmail.com', N'Armagh', N'None')
+GO
+SET IDENTITY_INSERT [dbo].[Parent] OFF
+
+
+
+GO
+SET IDENTITY_INSERT [dbo].[Children] ON 
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (1, 1, 1, N'Barry Madden', N'None', 9)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (2, 2, 1, N'Larry McKee', N'None', 10)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (3, 3, 2, N'Des', N'None', 11)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (4, 4, 2, N'Wayne Rooney', N'None', 7)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (5, 4, 2, N'Rory McIlroy', N'None', 9)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (6, 2, 2, N'Samantha Lee', N'None', 12)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (7, 3, 2, N'Elliot Barry', N'None', 12)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (8, 3, 1, N'Laura East', N'None', 12)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (9, 11, 3, N'Nick Diaz', N'None', 14)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (10, 11, 3, N'Ali Abdelaziz', N'None', 12)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (11, 2, 2, N'Odhran', N'None', 9)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (12, 13, 3, N'Shea', N'None', 9)
+GO
+INSERT [dbo].[Children] ([ChildId], [ParentId], [SchoolId], [ChildName], [MedicalDetails], [ChildAge]) VALUES (13, 14, 3, N'Charlotte Lynch', N'None', 7)
+GO
+SET IDENTITY_INSERT [dbo].[Children] OFF
+
+
+
+
+GO
+SET IDENTITY_INSERT [dbo].[BusBooking] ON 
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (1, 2, 2)
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (2, 1, 1)
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (3, 2, 1)
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (4, 2, 1)
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (5, 2, 2)
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (6, 3, 2)
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (7, 4, 1)
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (8, 3, 2)
+GO
+INSERT [dbo].[BusBooking] ([BusBookingId], [BusId], [StaffId]) VALUES (9, 4, 2)
+GO
+SET IDENTITY_INSERT [dbo].[BusBooking] OFF
+
+
+
+GO
+SET IDENTITY_INSERT [dbo].[Booking] ON 
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (18, 2, 3, 0, CAST(N'2019-10-05' AS Date))
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (22, 1, 3, 0, CAST(N'2019-06-02' AS Date))
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (28, 3, 3, 0, CAST(N'2019-12-04' AS Date))
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (29, 9, 3, 1, CAST(N'2019-06-02' AS Date))
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (30, 5, 2, 0, CAST(N'2019-04-05' AS Date))
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (32, 2, 3, 0, CAST(N'2019-02-04' AS Date))
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (33, 5, 5, 0, CAST(N'2019-02-03' AS Date))
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (37, 5, 5, 0, CAST(N'2019-08-03' AS Date))
+GO
+INSERT [dbo].[Booking] ([BookingId], [ChildId], [BusBookingId], [Paid], [Date]) VALUES (38, 4, 5, 0, CAST(N'2019-08-03' AS Date))
+GO
+SET IDENTITY_INSERT [dbo].[Booking] OFF
+GO
+
+GO
+SET IDENTITY_INSERT [dbo].[Cancellation] ON 
+GO
+INSERT [dbo].[Cancellation] ([CancellationId], [BookingId], [ChildId], [Date], [Reason]) VALUES (1, 1, 1, CAST(N'2001-02-26 00:00:00.000' AS DateTime), N'nONE')
+GO
+INSERT [dbo].[Cancellation] ([CancellationId], [BookingId], [ChildId], [Date], [Reason]) VALUES (2, 2, 2, CAST(N'2019-01-30 00:00:00.000' AS DateTime), N'Sick')
+GO
+INSERT [dbo].[Cancellation] ([CancellationId], [BookingId], [ChildId], [Date], [Reason]) VALUES (3, 10, 1, CAST(N'2019-03-08 00:00:00.000' AS DateTime), N'Sick')
+GO
+INSERT [dbo].[Cancellation] ([CancellationId], [BookingId], [ChildId], [Date], [Reason]) VALUES (4, 16, 2, CAST(N'2019-09-06 00:00:00.000' AS DateTime), N'Ill')
+GO
+INSERT [dbo].[Cancellation] ([CancellationId], [BookingId], [ChildId], [Date], [Reason]) VALUES (5, 25, 1, CAST(N'2019-09-01 00:00:00.000' AS DateTime), N'Na')
+GO
+INSERT [dbo].[Cancellation] ([CancellationId], [BookingId], [ChildId], [Date], [Reason]) VALUES (6, 34, 8, CAST(N'2019-02-11 00:00:00.000' AS DateTime), N'Ill')
+GO
+SET IDENTITY_INSERT [dbo].[Cancellation] OFF
